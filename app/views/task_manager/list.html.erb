@@ -1,0 +1,41 @@
+<header>
+  <h1>
+    <% if @current_list == nil %>
+      <%= "You have no lists" %>
+    <% else %>
+      <%= @current_list.title %>
+    <% end %>
+  </h1>
+</header>
+
+<section>
+  <nav>
+    <% @lists.each do |list| %>
+      <%= form_tag "/task_manager/delete_list/#{list.id}", method: "delete" do %>
+        <input type="submit" value="Delete">
+          <a href="/task_manager/<%= list.id %>" aria-hidden="true"><%= list.title %></a>
+      <% end %>
+    <% end %>
+
+    <%= form_tag "/task_manager/create_list", method: "post" do %>
+      <input type="text" name="title" placeholder="Create list">
+    <% end %>
+  </nav>
+
+  <% if @current_list != nil %>
+    <article>
+      <% @tasks.where(list_id: @current_list.id).each do |task| %>
+        <div class="task">
+          <%= form_tag "/task_manager/delete_task/#{@current_list.id}&#{task.id}/", method: "delete" do %>
+            <input type="image" src="<%= image_url('checkbox.png') %>" class="finish">
+            <%= task.title %>
+          <% end %>
+        </div>
+      <% end %>
+
+      <%= form_tag "/task_manager/create_task/#{@current_list.id}", method: "post" do %>
+        <input type="text" name="title" placeholder="Create a task" autofocus="true">
+      <% end %>
+    </article>
+  <% end %>
+</section>
