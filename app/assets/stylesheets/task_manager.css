@@ -1,0 +1,27 @@
+.status-finished {
+  border-color: gray !important;
+}
+
+.status-added {
+  border-color: green !important;
+}
+
+.status-started {
+  border-color: orangered !important;
+}
+
+.actions {
+  padding-top: 5px;
+}
+
+.btn-wide {
+  @media (max-width: $screen-sm-max) {
+    width: 35%;
+  }
+  @media (min-width: $screen-md-min) {
+    width: 100%;
+  }
+  @media (min-width: $screen-lg-min) {
+    width: 75%;
+  }
+}
